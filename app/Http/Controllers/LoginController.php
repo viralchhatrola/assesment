@@ -34,6 +34,16 @@ class LoginController extends Controller
             // Authentication passed...
             return redirect()->intended('/dashboard');
         }
-        return redirect()->back()->withErrors(['authentication' => 'Email or password incorrect.']);
+        return redirect()->back()->withErrors(['authentication' => 'Email or password incorrect.'])->withInput();;
+    }
+
+    /**
+     * logout user.
+     *
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }

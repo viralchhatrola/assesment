@@ -1,18 +1,19 @@
 @extends('layout.default')
 
 @section('title')
-  Add User  
+ User  
 @endsection
 @section('content')
 <section class="content">
   <div class="row">
     <div class="col-12">
+     <button type="button" onclick="window.location='{{url('/users/create/')}}'" class="btn btn-block btn-default">Add User</button>
+ </div></div>
+  <div class="row">
+    <div class="col-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Users</h3>
-        </div>
-        <div>        <button type="button" onclick="window.location='{{url('/users/create/')}}'" class="btn btn-block btn-default">Add User</button>
-        </div>
+       
+      
         <!-- /.card-header -->
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped">

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Role;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -44,5 +45,24 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class, RoleUser::class, 'user_id', 'role_id');
+    }
+
+    /**
+     * Get the role name.
+     *
+     * @return string
+     */
+    public function getRoleAttribute()
+    {
+        $role = "";
+        foreach ($this->roles as $role) {
+            $role = $role['name'];
+        }
+        return $role;
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

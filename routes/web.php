@@ -17,11 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/**
- * need to add user, role, dashboard, login, logout controller
- */
-Route::resource('users', 'UserController');
-
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('users', 'UserController');
+    Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/logout', 'LoginController@logout');
+});
 Route::get('/login', 'LoginController@login');
 Route::post('/login/authenticate', 'LoginController@authenticate');
-Route::get('/dashboard', 'DashboardController@index');

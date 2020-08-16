@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use App\Http\Requests\CreateUserRequest;
+use App\RoleUser;
+use App\Providers\App\Events\NewUserRegistered;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -15,9 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        print "<pre>";
-        $users = User::all();
-        print_r($users);
+        $users = User::with('roles')->get();
         return view('user.index', compact('users'));
     }
 
@@ -28,7 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $roles = Role::all();
+        return view('user.create', compact('roles'));
     }
 
     /**
@@ -39,7 +42,18 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        print "hi";
+        $user = $request->validated();
+        $user['password'] = $password = Str::random(10);
+
+        //entry in user table
+        $addedUser = User::create($user);
+
+        //entry in roleuser table
+        $roleUser = RoleUser::create(['user_id' => $addedUser->id, 'role_id' => $user['role']]);
+
+        //mail user for crendential
+        event(new NewUserRegistered($addedUser, $password));
+        return redirect('users');
     }
 
     /**
