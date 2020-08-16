@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
@@ -14,8 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        print "hi";
-        print_r(User::all());
+        print "<pre>";
+        $users = User::all();
+        print_r($users);
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -25,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -34,9 +37,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        print "hi";
     }
 
     /**

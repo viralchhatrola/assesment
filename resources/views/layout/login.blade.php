@@ -38,6 +38,9 @@
             </div>
           </div>
         </div>
+        @if($errors->has('email'))
+        <div class="error">{{ $errors->first('email') }}</div><div class="row"> </div>
+        @endif
         <div class="input-group mb-3">
           <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
@@ -46,6 +49,15 @@
             </div>
           </div>
         </div>
+        @if($errors->has('password'))
+        <div class="error">{{ $errors->first('password') }}</div><div class="row"> </div>
+
+        @endif
+        @if($errors->has('authentication'))
+        <div class="error">{{ $errors->first('authentication') }}</div><div class="row"> </div>
+
+        @endif
+        
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\AuthenticationRequest;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Session;
@@ -26,15 +27,13 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function authenticate(Request $request)
+    public function authenticate(AuthenticationRequest $request)
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            print "hi";
             // Authentication passed...
             return redirect()->intended('/dashboard');
-        } else {
-            print "wrong";
         }
+        return redirect()->back()->withErrors(['authentication' => 'Email or password incorrect.']);
     }
 }
