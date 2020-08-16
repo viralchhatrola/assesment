@@ -10,12 +10,26 @@ use Illuminate\Queue\SerializesModels;
 class UserCredentialMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    /**
+     * Registered user email for sending in mail
+     *
+     * @var string
+     */
     public $email;
+
+    /**
+     * Registered user password for sending in mail
+     *
+     * @var string
+     */
     public $password;
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param string $email
+     * @param string $password
+     * @return void 
      */
     public function __construct($email, $password)
     {
