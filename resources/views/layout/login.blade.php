@@ -39,7 +39,7 @@
           </div>
         </div>
         @if($errors->has('email'))
-        <div class="error">{{ $errors->first('email') }}</div><div class="row"> </div>
+        <span class="error">{{ $errors->first('email') }}</span><div class="row"> </div>
         @endif
         <div class="input-group mb-3">
           <input type="password"  value = "{{old('password')}}" name="password" class="form-control" placeholder="Password">
@@ -50,7 +50,7 @@
           </div>
         </div>
         @if($errors->has('password'))
-        <div class="error">{{ $errors->first('password') }}</div><div class="row"> </div>
+        <span class="error">{{ $errors->first('password') }}</span><div class="row"> </div>
 
         @endif
         @if($errors->has('authentication'))
@@ -60,7 +60,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" name = "remember" value=1 id="remember">
               <label for="remember">
                 Remember Me
               </label>

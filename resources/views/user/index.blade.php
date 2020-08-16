@@ -5,10 +5,12 @@
 @endsection
 @section('content')
 <section class="content">
+  @if( auth()->user()->isAdmin() == 1)
   <div class="row">
     <div class="col-12">
      <button type="button" onclick="window.location='{{url('/users/create/')}}'" class="btn btn-block btn-default">Add User</button>
  </div></div>
+ @endif
   <div class="row">
     <div class="col-12">
       <div class="card">

@@ -41,6 +41,8 @@ class User extends Authenticatable
 
     /**
      * The roles that belong to the user.
+     * 
+     * @return Relationship
      */
     public function roles()
     {
@@ -61,8 +63,24 @@ class User extends Authenticatable
         return $role;
     }
 
-    public function setPasswordAttribute($value)
+    /**
+     * set the password.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPasswordAttribute(string $value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    /**
+     * return flag if user is admin or not.
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->roles()->where('name', 'Admin')->exists();
     }
 }

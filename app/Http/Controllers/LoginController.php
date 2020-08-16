@@ -25,13 +25,14 @@ class LoginController extends Controller
     /**
      * Authenticate user after submitting form.
      *
+     * @param  App\Http\Requests\AuthenticationRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function authenticate(AuthenticationRequest $request)
     {
         $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
             return redirect()->intended('/dashboard');
         }
         return redirect()->back()->withErrors(['authentication' => 'Email or password incorrect.'])->withInput();;
@@ -40,6 +41,7 @@ class LoginController extends Controller
     /**
      * logout user.
      *
+     * @return \Illuminate\Http\Response
      */
     public function logout()
     {
